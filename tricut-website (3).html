@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tri-Cut Lawn Co. | Upper Arlington, OH</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+<style>
+  :root { --green: #2d5a1b; --lime: #7ec832; --cream: #f5f0e8; --dark: #111a0d; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--cream); color: var(--dark); font-family: 'DM Sans', sans-serif; overflow-x: hidden; }
+
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1rem 2.5rem;
+    background: rgba(245,240,232,0.96); backdrop-filter: blur(10px);
+    border-bottom: 2px solid var(--green);
+  }
+  .logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; color: var(--green); letter-spacing: 2px; }
+  .logo span { color: var(--lime); }
+  nav ul { list-style: none; display: flex; gap: 2rem; align-items: center; }
+  nav ul a { text-decoration: none; color: var(--dark); font-weight: 600; font-size: .85rem; letter-spacing: 1px; text-transform: uppercase; transition: color .2s; }
+  nav ul a:hover { color: var(--lime); }
+  .nav-cta { background: var(--lime); color: var(--dark) !important; padding: .45rem 1.1rem; }
+
+  .hero {
+    min-height: 100vh; position: relative;
+    display: flex; align-items: center; overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background-image: url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80');
+    background-size: cover; background-position: center;
+    filter: brightness(0.3);
+  }
+  .hero-overlay { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(45,90,27,0.88) 0%, rgba(17,26,13,0.65) 100%); }
+  .hero-content { position: relative; z-index: 2; padding: 8rem 2.5rem 4rem; max-width: 750px; }
+  .hero-tag { display: inline-flex; align-items: center; gap: .5rem; background: var(--lime); color: var(--dark); font-weight: 700; font-size: .72rem; letter-spacing: 3px; text-transform: uppercase; padding: .4rem 1rem; margin-bottom: 1.5rem; }
+  .hero h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3.5rem, 9vw, 7.5rem); color: var(--cream); line-height: .92; letter-spacing: 2px; margin-bottom: 1rem; }
+  .hero h1 em { font-family: 'Playfair Display', serif; color: var(--lime); font-style: italic; font-size: .75em; }
+  .hero-sub { color: rgba(245,240,232,.8); font-size: 1.05rem; max-width: 500px; line-height: 1.65; margin-bottom: 2.5rem; }
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary { background: var(--lime); color: var(--dark); padding: .9rem 2rem; font-weight: 700; font-size: 1rem; border: none; cursor: pointer; text-decoration: none; display: inline-block; transition: transform .15s, background .15s; }
+  .btn-primary:hover { background: #93e03a; transform: translateY(-2px); }
+  .btn-outline { border: 2px solid var(--cream); color: var(--cream); padding: .9rem 2rem; font-weight: 700; font-size: 1rem; text-decoration: none; display: inline-block; transition: all .15s; }
+  .btn-outline:hover { background: var(--cream); color: var(--dark); }
+
+  .trust-bar { background: var(--dark); display: flex; justify-content: center; gap: 3rem; padding: 1.1rem 2rem; flex-wrap: wrap; }
+  .trust-item { display: flex; align-items: center; gap: .5rem; color: rgba(245,240,232,.7); font-size: .82rem; font-weight: 600; letter-spacing: 1px; }
+
+  .ticker { background: var(--lime); color: var(--dark); padding: .65rem 0; overflow: hidden; white-space: nowrap; }
+  .ticker-inner { display: inline-block; animation: ticker 22s linear infinite; font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: 3px; }
+  @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+  .photo-strip { display: grid; grid-template-columns: 2fr 1fr 1fr; height: 280px; gap: 5px; }
+  .photo-strip img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .4s; }
+  .photo-strip img:hover { transform: scale(1.04); }
+
+  .section { padding: 5rem 2.5rem; max-width: 1100px; margin: 0 auto; }
+  .section-label { font-size: .7rem; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: var(--lime); margin-bottom: .4rem; }
+  .section h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.2rem, 5vw, 3.5rem); color: var(--dark); letter-spacing: 2px; margin-bottom: 3rem; }
+
+  .services-section { background: var(--dark); padding: 5rem 2.5rem; }
+  .services-inner { max-width: 1100px; margin: 0 auto; }
+  .services-section .section-label { color: var(--lime); }
+  .services-section h2 { color: var(--cream); margin-bottom: .4rem; }
+  .services-sub { color: rgba(245,240,232,.5); margin-bottom: 3rem; font-size: .88rem; }
+  .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.2rem; }
+  .service-card { border: 1px solid rgba(245,240,232,.1); padding: 1.8rem 1.4rem; transition: border-color .2s, background .2s; position: relative; overflow: hidden; }
+  .service-card:hover { border-color: var(--lime); background: rgba(126,200,50,.07); }
+  .service-card.pop { border-color: var(--lime); background: rgba(126,200,50,.07); }
+  .service-card.pop::before { content: 'POPULAR'; position: absolute; top: 0; right: 0; background: var(--lime); color: var(--dark); font-size: .58rem; font-weight: 700; letter-spacing: 2px; padding: .22rem .6rem; }
+  .service-icon { font-size: 2rem; margin-bottom: .8rem; }
+  .service-card h3 { color: var(--cream); font-weight: 700; margin-bottom: .35rem; font-size: .92rem; }
+  .service-card p { color: rgba(245,240,232,.5); font-size: .8rem; line-height: 1.55; }
+  .service-price { margin-top: .9rem; color: var(--lime); font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 2px; }
+  .service-note { font-family: 'DM Sans', sans-serif; font-size: .75rem; opacity: .45; letter-spacing: 0; }
+
+  .crew-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2rem; }
+  .crew-card { background: var(--green); color: var(--cream); padding: 2rem 1.2rem; text-align: center; position: relative; overflow: hidden; transition: transform .2s; }
+  .crew-card:hover { transform: translateY(-6px); }
+  .crew-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: var(--lime); }
+  .crew-avatar { width: 72px; height: 72px; border-radius: 50%; background: var(--lime); display: flex; align-items: center; justify-content: center; font-family: 'Bebas Neue', sans-serif; font-size: 1.7rem; color: var(--dark); margin: 0 auto .9rem; border: 3px solid rgba(255,255,255,.15); }
+  .crew-card h3 { font-family: 'Bebas Neue', sans-serif; font-size: 1.25rem; letter-spacing: 1.5px; margin-bottom: .2rem; line-height: 1.2; }
+  .crew-card .role { font-size: .78rem; opacity: .6; }
+  .crew-card .badge { margin-top: .5rem; color: var(--lime); font-size: .68rem; letter-spacing: 2px; text-transform: uppercase; font-weight: 700; }
+
+  .why-section { background: #eee8db; }
+  .why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
+  .why-img { width: 100%; height: 400px; object-fit: cover; }
+  .why-list { list-style: none; display: flex; flex-direction: column; gap: .9rem; }
+  .why-list li { display: flex; align-items: flex-start; gap: 1rem; padding: 1rem 1.2rem; border-left: 3px solid var(--lime); background: white; }
+  .why-list li .check { font-size: 1.2rem; flex-shrink: 0; margin-top: .1rem; }
+  .why-list li strong { display: block; margin-bottom: .12rem; font-size: .92rem; }
+  .why-list li span { font-size: .82rem; color: #555; line-height: 1.5; }
+
+  .form-section { background: var(--green); padding: 5rem 2.5rem; }
+  .form-inner { max-width: 680px; margin: 0 auto; }
+  .form-section .section-label { color: var(--lime); }
+  .form-section h2 { color: var(--cream); margin-bottom: .4rem; font-family: 'Bebas Neue', sans-serif; font-size: clamp(2rem, 5vw, 3.2rem); letter-spacing: 2px; }
+  .form-sub { color: rgba(245,240,232,.6); margin-bottom: 2.5rem; font-size: .88rem; line-height: 1.6; }
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .form-group { display: flex; flex-direction: column; gap: .35rem; }
+  .form-group.full { grid-column: 1 / -1; }
+  .form-group label { color: rgba(245,240,232,.65); font-size: .72rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; }
+  .form-group input, .form-group select, .form-group textarea { background: rgba(255,255,255,.08); border: 1px solid rgba(245,240,232,.18); color: var(--cream); padding: .75rem 1rem; font-family: 'DM Sans', sans-serif; font-size: .9rem; transition: border-color .2s; outline: none; width: 100%; }
+  .form-group input::placeholder, .form-group textarea::placeholder { color: rgba(245,240,232,.28); }
+  .form-group select option { background: #1e3d10; color: var(--cream); }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--lime); background: rgba(255,255,255,.12); }
+  .form-group textarea { resize: vertical; min-height: 85px; }
+  .form-submit { margin-top: 1.4rem; width: 100%; background: var(--lime); color: var(--dark); padding: 1rem 2rem; font-weight: 700; font-size: 1rem; border: none; cursor: pointer; letter-spacing: 1px; transition: background .2s, transform .15s; font-family: 'DM Sans', sans-serif; }
+  .form-submit:hover { background: #93e03a; transform: translateY(-2px); }
+  .form-success { display: none; background: rgba(126,200,50,.15); border: 1px solid var(--lime); color: var(--lime); padding: 1.2rem; text-align: center; margin-top: 1rem; font-weight: 600; font-size: .95rem; }
+
+  .contact-section { background: var(--lime); padding: 4rem 2.5rem; text-align: center; }
+  .contact-section h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2rem, 5vw, 4rem); color: var(--dark); letter-spacing: 2px; margin-bottom: .8rem; }
+  .contact-section p { font-size: .95rem; color: rgba(17,26,13,.7); margin-bottom: 2rem; }
+  .contact-info { display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap; margin-bottom: 2rem; }
+  .contact-item .clabel { font-size: .68rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: rgba(17,26,13,.5); margin-bottom: .22rem; }
+  .contact-item .cvalue { font-weight: 700; font-size: 1rem; color: var(--dark); }
+  .contact-item .cvalue a { color: var(--dark); text-decoration: none; }
+
+  footer { background: var(--dark); color: rgba(245,240,232,.4); text-align: center; padding: 1.4rem; font-size: .78rem; letter-spacing: 1px; }
+  footer strong { color: var(--lime); }
+
+  @media (max-width: 900px) {
+    .crew-grid { grid-template-columns: repeat(2, 1fr); }
+    .why-grid { grid-template-columns: 1fr; }
+    .why-img { height: 240px; }
+    .photo-strip { grid-template-columns: 1fr 1fr; height: auto; grid-template-rows: 180px 180px; }
+    .photo-strip img:first-child { grid-column: 1 / -1; }
+  }
+  @media (max-width: 600px) {
+    nav ul { display: none; }
+    .form-grid { grid-template-columns: 1fr; }
+    .trust-bar { gap: 1rem; }
+    .photo-strip { height: auto; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Tri<span>-</span>Cut <span style="font-size:.9rem;letter-spacing:1px;color:var(--dark);font-family:'DM Sans',sans-serif;font-weight:600;">Lawn Co.</span></div>
+  <ul>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#crew">Crew</a></li>
+    <li><a href="#quote">Get Quote</a></li>
+    <li><a href="tel:6144408410" class="nav-cta">📱 Call Us</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-tag">📍 Upper Arlington, Ohio</div>
+    <h1>YOUR YARD.<br><em>Our Obsession.</em></h1>
+    <p class="hero-sub">Four-man UA wrestler crew. Reliable, hardworking, and local. We mow, trim, edge & clean up so your lawn looks sharp all summer long — starting at just $35.</p>
+    <div class="hero-btns">
+      <a href="#quote" class="btn-primary">Get a Free Quote</a>
+      <a href="tel:6144408410" class="btn-outline">📱 (614) 440-8410</a>
+    </div>
+  </div>
+</section>
+
+<div class="trust-bar">
+  <div class="trust-item"><span>🤼</span><span>UA Wrestlers</span></div>
+  <div class="trust-item"><span>📍</span><span>Upper Arlington Locals</span></div>
+  <div class="trust-item"><span>⏰</span><span>Always On Time</span></div>
+  <div class="trust-item"><span>💰</span><span>Starting at $35</span></div>
+  <div class="trust-item"><span>👥</span><span>4-Man Crew</span></div>
+</div>
+
+<div class="ticker">
+  <span class="ticker-inner">✦ MOWING &nbsp;&nbsp; ✦ EDGING &nbsp;&nbsp; ✦ TRIMMING &nbsp;&nbsp; ✦ LEAF CLEANUP &nbsp;&nbsp; ✦ MULCHING &nbsp;&nbsp; ✦ WEEDING &nbsp;&nbsp; ✦ UPPER ARLINGTON OH &nbsp;&nbsp; ✦ UA WRESTLERS &nbsp;&nbsp; ✦ RELIABLE &nbsp;&nbsp; ✦ AFFORDABLE &nbsp;&nbsp; ✦ LOCAL CREW &nbsp;&nbsp;&nbsp;&nbsp;✦ MOWING &nbsp;&nbsp; ✦ EDGING &nbsp;&nbsp; ✦ TRIMMING &nbsp;&nbsp; ✦ LEAF CLEANUP &nbsp;&nbsp; ✦ MULCHING &nbsp;&nbsp; ✦ WEEDING &nbsp;&nbsp; ✦ UPPER ARLINGTON OH &nbsp;&nbsp; ✦ UA WRESTLERS &nbsp;&nbsp; ✦ RELIABLE &nbsp;&nbsp; ✦ AFFORDABLE &nbsp;&nbsp; ✦ LOCAL CREW &nbsp;&nbsp;&nbsp;&nbsp;</span>
+</div>
+
+<!-- PHOTO STRIP -->
+<div class="photo-strip">
+  <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&q=80" alt="Beautifully mowed lawn" loading="lazy">
+  <img src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=600&q=80" alt="Upper Arlington neighborhood home" loading="lazy">
+  <img src="https://images.unsplash.com/photo-1416339306562-f3d12fefd36f?w=600&q=80" alt="Tree-lined suburban street" loading="lazy">
+</div>
+
+<!-- SERVICES -->
+<section class="services-section" id="services">
+  <div class="services-inner">
+    <div class="section-label">What We Do</div>
+    <h2 style="color:var(--cream);margin-bottom:.4rem;">Services & Pricing</h2>
+    <p class="services-sub">Competitive UA pricing. No contracts. Free quotes. Weekly discounts available.</p>
+    <div class="services-grid">
+      <div class="service-card pop">
+        <div class="service-icon">🌱</div>
+        <h3>Standard Mow & Trim</h3>
+        <p>Full mow, string trim, edge, and blowout of clippings from all hard surfaces.</p>
+        <div class="service-price">$35 – $45</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">✂️</div>
+        <h3>Edge & Detail</h3>
+        <p>Crisp, clean sidewalk and driveway edges for a sharp, professional look.</p>
+        <div class="service-price">$15 <span class="service-note">add-on</span></div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🍂</div>
+        <h3>Leaf Cleanup</h3>
+        <p>Full yard leaf removal and bagging. Great for fall or after a windy week.</p>
+        <div class="service-price">From $50</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🌾</div>
+        <h3>Mulching</h3>
+        <p>Fresh mulch spread in flower beds and around trees to keep things looking clean.</p>
+        <div class="service-price">By quote</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🌿</div>
+        <h3>Weeding</h3>
+        <p>Hand-pull weeding of beds and borders — great add-on with any service.</p>
+        <div class="service-price">$25 <span class="service-note">add-on</span></div>
+      </div>
+      <div class="service-card pop">
+        <div class="service-icon">📅</div>
+        <h3>Weekly Package</h3>
+        <p>Lock in weekly mowing at our best rate. Priority scheduling for regular clients.</p>
+        <div class="service-price">Best Value</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CREW -->
+<section id="crew">
+  <div class="section">
+    <div class="section-label">Meet the Team</div>
+    <h2>The Tri-Cut Crew</h2>
+    <div class="crew-grid">
+      <div class="crew-card">
+        <div class="crew-avatar">RM</div>
+        <h3>Ricky Molasso-Matessa</h3>
+        <p class="role">Founder & Crew Lead</p>
+        <p class="badge">🤼 UA Wrestler</p>
+      </div>
+      <div class="crew-card">
+        <div class="crew-avatar">OM</div>
+        <h3>Owen Myers</h3>
+        <p class="role">Crew Member</p>
+        <p class="badge">🤼 UA Wrestler</p>
+      </div>
+      <div class="crew-card">
+        <div class="crew-avatar">CD</div>
+        <h3>Cole Dodson</h3>
+        <p class="role">Crew Member</p>
+        <p class="badge">🤼 UA Wrestler</p>
+      </div>
+      <div class="crew-card">
+        <div class="crew-avatar">BS</div>
+        <h3>Ben Sacksteder</h3>
+        <p class="role">Crew Member</p>
+        <p class="badge">🤼 UA Wrestler</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="why-section">
+  <div class="section">
+    <div class="why-grid">
+      <img class="why-img" src="https://images.unsplash.com/photo-1416339306562-f3d12fefd36f?w=800&q=80" alt="Upper Arlington neighborhood" loading="lazy">
+      <div>
+        <div class="section-label">Why Tri-Cut</div>
+        <h2 style="margin-bottom:1.5rem;">We Show Up.<br>Every Time.</h2>
+        <ul class="why-list">
+          <li><span class="check">🤼</span><div><strong>Wrestler Work Ethic</strong><span>Discipline, grit, and showing up — we bring that mentality to every yard we touch.</span></div></li>
+          <li><span class="check">📍</span><div><strong>UA Locals</strong><span>We live here, go to school here, and take pride in keeping our neighborhood looking great.</span></div></li>
+          <li><span class="check">⏰</span><div><strong>Always On Time</strong><span>We text you the day before and show up when we say. No flaking, no excuses.</span></div></li>
+          <li><span class="check">💰</span><div><strong>Fair, Honest Pricing</strong><span>Upfront quotes every time. Weekly regulars always get our best rates.</span></div></li>
+          <li><span class="check">👥</span><div><strong>4-Man Crew</strong><span>More hands means faster, more thorough work than any solo operator in the area.</span></div></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUOTE FORM -->
+<section class="form-section" id="quote">
+  <div class="form-inner">
+    <div class="section-label">Get Started</div>
+    <h2>Request a Free Quote</h2>
+    <p class="form-sub">Fill this out and we'll text or call you back same day to schedule a free walk-through. No pressure, no contracts.</p>
+    <div class="form-grid" id="quoteForm">
+      <div class="form-group">
+        <label>First Name *</label>
+        <input type="text" id="firstName" placeholder="Jane" />
+      </div>
+      <div class="form-group">
+        <label>Last Name</label>
+        <input type="text" id="lastName" placeholder="Smith" />
+      </div>
+      <div class="form-group">
+        <label>Phone Number *</label>
+        <input type="tel" id="phone" placeholder="(614) 555-0000" />
+      </div>
+      <div class="form-group">
+        <label>Email (optional)</label>
+        <input type="email" id="email" placeholder="jane@email.com" />
+      </div>
+      <div class="form-group full">
+        <label>Your Address *</label>
+        <input type="text" id="address" placeholder="123 Tremont Rd, Upper Arlington, OH" />
+      </div>
+      <div class="form-group">
+        <label>Service Needed *</label>
+        <select id="service">
+          <option value="">Select a service...</option>
+          <option>Mow, Trim & Blowout — $35–$45</option>
+          <option>Mow + Edge & Detail — add $15</option>
+          <option>Mow + Weeding — add $25</option>
+          <option>Full Service (Mow + Edge + Weed)</option>
+          <option>Leaf Cleanup — from $50</option>
+          <option>Mulching — free quote</option>
+          <option>Weekly Package — best rate</option>
+          <option>Not sure — just want a quote</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>How Often?</label>
+        <select id="frequency">
+          <option value="">Select...</option>
+          <option>Weekly</option>
+          <option>Every 2 Weeks</option>
+          <option>One-Time</option>
+          <option>Not Sure</option>
+        </select>
+      </div>
+      <div class="form-group full">
+        <label>Anything else we should know?</label>
+        <textarea id="notes" placeholder="Big backyard, gate on the left side, dog in yard, specific areas to avoid..."></textarea>
+      </div>
+    </div>
+    <button class="form-submit" onclick="submitForm()">📲 Send My Quote Request</button>
+    <div class="form-success" id="formSuccess">✅ Got it! Ricky will text or call you within a few hours. — The Tri-Cut Crew 🌿</div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <h2>Ready for a Greener Yard?</h2>
+  <p>Call or text us directly — we're fast to respond.</p>
+  <div class="contact-info">
+    <div class="contact-item">
+      <div class="clabel">Call or Text</div>
+      <div class="cvalue"><a href="tel:6144408410">📱 (614) 440-8410</a></div>
+    </div>
+    <div class="contact-item">
+      <div class="clabel">Email</div>
+      <div class="cvalue"><a href="mailto:tricutlawnco@gmail.com">✉️ tricutlawnco@gmail.com</a></div>
+    </div>
+    <div class="contact-item">
+      <div class="clabel">Service Area</div>
+      <div class="cvalue">📍 Upper Arlington, OH</div>
+    </div>
+  </div>
+  <a href="tel:6144408410" class="btn-primary" style="font-size:1rem;padding:1rem 2.5rem;">📲 Call (614) 440-8410</a>
+</section>
+
+<footer>
+  © 2025 <strong>Tri-Cut Lawn Co.</strong> · Upper Arlington, Ohio · Ricky, Owen, Cole & Ben · 🤼 UA Wrestlers
+</footer>
+
+<script>
+function submitForm() {
+  const firstName = document.getElementById('firstName').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  const address = document.getElementById('address').value.trim();
+  const service = document.getElementById('service').value;
+
+  if (!firstName || !phone || !address || !service) {
+    alert('Please fill in the required fields: Name, Phone, Address, and Service.');
+    return;
+  }
+
+  // ─── GOOGLE SHEETS INTEGRATION ───
+  // Replace the URL below with your Google Apps Script Web App URL
+  // See the setup instructions provided separately
+  const SHEET_URL = 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE';
+
+  const data = {
+    timestamp: new Date().toLocaleString(),
+    firstName: firstName,
+    lastName: document.getElementById('lastName').value.trim(),
+    phone: phone,
+    email: document.getElementById('email').value.trim(),
+    address: address,
+    service: service,
+    frequency: document.getElementById('frequency').value,
+    notes: document.getElementById('notes').value.trim()
+  };
+
+  if (SHEET_URL !== 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE') {
+    const params = new URLSearchParams(data);
+    fetch(SHEET_URL + '?' + params.toString(), { method: 'GET', mode: 'no-cors' }).catch(() => {});
+  }
+
+  document.getElementById('formSuccess').style.display = 'block';
+  document.getElementById('quoteForm').style.opacity = '0.4';
+  document.getElementById('quoteForm').style.pointerEvents = 'none';
+  document.querySelector('.form-submit').style.display = 'none';
+  document.getElementById('formSuccess').scrollIntoView({ behavior: 'smooth' });
+}
+</script>
+</body>
+</html>
