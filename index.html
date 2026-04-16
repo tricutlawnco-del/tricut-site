@@ -384,10 +384,8 @@ function submitForm() {
     return;
   }
 
-  // ─── GOOGLE SHEETS INTEGRATION ───
-  // Replace the URL below with your Google Apps Script Web App URL
-  // See the setup instructions provided separately
-  const SHEET_URL = 'https://script.google.com/macros/s/AKfycbyBH1p4V8gCbZkkGMje4YoYXZrEji35ta7J1RbBu_8meHpjJfsYloW-FuzAdzIMsGfQ/exec'
+  const SHEET_URL = 'https://script.google.com/macros/s/AKfycbyBH1p4V8gCbZkkGMje4YoYXZrEji35ta7J1RbBu_8meHpjJfsYloW-FuzAdzIMsGfQ/exec';
+
   const data = {
     timestamp: new Date().toLocaleString(),
     firstName: firstName,
@@ -401,9 +399,9 @@ function submitForm() {
   };
 
   const params = new URLSearchParams(data);
-const img = new Image();
-img.src = SHEET_URL + '?' + params.toString();
-  }
+
+  const img = new Image();
+  img.src = SHEET_URL + '?' + params.toString();
 
   document.getElementById('formSuccess').style.display = 'block';
   document.getElementById('quoteForm').style.opacity = '0.4';
@@ -412,5 +410,3 @@ img.src = SHEET_URL + '?' + params.toString();
   document.getElementById('formSuccess').scrollIntoView({ behavior: 'smooth' });
 }
 </script>
-</body>
-</html>
